@@ -614,6 +614,19 @@ caesarDecipherTests =
       , mkTest "caesarDecipher homework example 3" "Bytc Pyugryr" (caesarDecipher 8 "Jgbk Xgcozgz")
       ]
 
+slowestSortTests :: Test
+slowestSortTests =
+  TestLabel "slowestSort" $
+    TestList
+      [ mkTest "sorts empty list" ([] :: [Int]) (slowestSort ([] :: [Int]))
+      , mkTest "sorts singleton list" ([42] :: [Int]) (slowestSort [42 :: Int])
+      , mkTest "sorts reverse list" ([1,2,3,4] :: [Int]) (slowestSort [4,3,2,1 :: Int])
+      , mkTest "handles duplicates" ([1,1,2,3] :: [Int]) (slowestSort [3,1,2,1 :: Int])
+      , mkTest "sorts characters" "aeklrt" (slowestSort "talker")
+      , mkTest "comparison of sort function - integers" (sort [3,4,1,2 :: Int]) (slowestSort [3,4,1,2 :: Int])
+      , mkTest "comparison of sort function - strings" (sort "kitimark") (slowestSort "kitimark")
+      ]
+
 allTests :: Test
 allTests = TestList
   [ lengthTests
@@ -662,6 +675,7 @@ allTests = TestList
   , areAnagramTests
   , caesarCipherTests
   , caesarDecipherTests
+  , slowestSortTests
   ]
 
 main :: IO ()

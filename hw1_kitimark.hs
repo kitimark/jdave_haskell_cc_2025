@@ -295,3 +295,27 @@ _shiftAsciiLower n c = chr (((shiftedAscii - _asciiNumOf_a) `mod` 26) + _asciiNu
         shiftedAscii = ord c + n
         _asciiNumOf_a = 97
         _asciiNumOf_z = 122
+
+-- Question 7; (Challenge) find slowest sort algorithm
+
+slowestSort :: (Ord a) => [a] -> [a]
+
+-- implement
+--
+-- complexity analysis
+--
+-- - permutations' take O(n!)
+-- - _find take O(n!)
+-- - _isSortArray take O(n)
+--
+-- complexity = n + n! + n!
+-- complexity = O(n!) given n is number elements in array
+slowestSort x = _find _isSortArray $ permutations' x
+
+_find :: (a -> Bool) -> [a] -> a
+_find p xs = head' $ filter' p xs
+
+_isSortArray :: Ord a => [a] -> Bool
+_isSortArray [] = True
+_isSortArray [x] = True
+_isSortArray (x1:x2:xs) = x1 <= x2 && _isSortArray(x2:xs)
