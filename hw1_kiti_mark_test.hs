@@ -10,7 +10,7 @@ import System.Exit (exitFailure, exitSuccess)
 import Test.HUnit
 
 -- Reuse the functions under test without touching their source file.
-#include "hw1_kitimark.hs"
+#include "hw1_kiti_mark.hs"
 
 mkTest :: (Eq a, Show a) => String -> a -> a -> Test
 mkTest label expected actual =
