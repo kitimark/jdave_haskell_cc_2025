@@ -553,6 +553,17 @@ stalinSortTests =
       , mkTest "sorts from homework example" [3, 4, 7, 9, 10, 11] (stalinSort [3, 1, 2, 4, 3, 7, 1, 9, 10, 11, 2, 4 :: Int])
       ]
 
+compressTests :: Test
+compressTests =
+  TestLabel "compress" $
+    TestList
+      [ mkTest "compress empty string" "" (compress "")
+      , mkTest "compress singleton char" "A1" (compress "A")
+      , mkTest "compress homework example 1" "A7B4A4C4" (compress "AAAAAAABBBBAAAACCCC")
+      , mkTest "compress homework example 2" "A25" (compress "AAAAAAAAAAAAAAAAAAAAAAAAA")
+      , mkTest "compress homework example 3" "A1B1C1" (compress "ABC")
+      ]
+
 allTests :: Test
 allTests = TestList
   [ lengthTests
@@ -595,6 +606,7 @@ allTests = TestList
   , mergesortTests
   , mergeTests
   , stalinSortTests
+  , compressTests
   ]
 
 main :: IO ()

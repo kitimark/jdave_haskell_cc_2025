@@ -234,3 +234,25 @@ stalinSort [x] = [x]
 stalinSort (x1:x2:xs)
     | x1 < x2 = x1 : stalinSort (x2:xs)
     | otherwise = stalinSort (x1:xs)
+
+-- Question 4; implement compression algorithm
+
+compress :: String -> String
+
+-- implement
+compress "" = ""
+compress s = concat' . concat' . concat' . map' _convert $ _compress s
+
+_convert :: (Char, Int) -> [[String]]
+_convert (c, n) = [[[c], show n]]
+
+_compress :: String -> [(Char, Int)]
+_compress [] = []
+_compress [a] = [(a, 1)]
+_compress (x:xs) = _add x $ _compress xs
+
+_add :: Char -> [(Char, Int)] -> [(Char, Int)]
+_add c [] = [(c, 1)]
+_add c1 ((c2, n):xs)
+    | c1 == c2 = (c2, n + 1) : xs
+    | otherwise = (c1, 1) : (c2, n) : xs
