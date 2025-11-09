@@ -302,14 +302,14 @@ slowestSort :: (Ord a) => [a] -> [a]
 
 -- implement
 --
--- complexity analysis
+-- time complexity analysis
 --
 -- - permutations' take O(n!)
 -- - _find take O(n!)
 -- - _isSortArray take O(n)
 --
--- complexity = n + n! + n!
--- complexity = O(n!) given n is number elements in array
+-- time complexity = O(n) + O(n!) + O(n!)
+-- time complexity = O(n!) given n is number elements in array
 slowestSort x = _find _isSortArray $ permutations' x
 
 _find :: (a -> Bool) -> [a] -> a
