@@ -1,4 +1,4 @@
-import Data.Char (toLower, isSpace)
+import Data.Char (chr, isLower, isSpace, isUpper, ord, toLower, toUpper)
 
 -- Question 1; implement these function following Data.List library
 -- length
@@ -268,3 +268,33 @@ areAnagram "" "" = True
 areAnagram s1 s2 = _normalize s1 == _normalize s2
 
 _normalize s = mergesort $ map toLower $ filter' (not . isSpace) $ s
+
+-- Question 6; implement caesarCipher and caesarCipher
+
+-- caesarCipher
+caesarCipher :: Int -> String -> String
+
+-- implement
+caesarCipher n "" = ""
+caesarCipher n (x:xs) = _caesarShiftChar n x : caesarCipher n xs
+
+-- caesarDecipher
+caesarDecipher :: Int -> String -> String
+
+-- implement
+caesarDecipher n s = caesarCipher (-1 * n) s
+
+_caesarShiftChar n c
+    | isUpper c = _shiftAsciiUpper n c
+    | isLower c = _shiftAsciiLower n c
+    | otherwise = c
+
+_shiftAsciiUpper :: Int -> Char -> Char
+_shiftAsciiUpper n c = toUpper . _shiftAsciiLower n $ toLower c
+
+_shiftAsciiLower :: Int -> Char -> Char
+_shiftAsciiLower n c = chr (((shiftedAscii - _asciiNumOf_a) `mod` 26) + _asciiNumOf_a)
+    where
+        shiftedAscii = ord c + n
+        _asciiNumOf_a = 97
+        _asciiNumOf_z = 122

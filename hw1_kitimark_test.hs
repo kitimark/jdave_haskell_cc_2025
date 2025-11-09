@@ -572,6 +572,25 @@ areAnagramTests =
       , mkTest "areAnagram homework example 2" False (areAnagram "Tom Marvolo Riddle" "I am also Lord Voldemort")
       ]
 
+caesarCipherTests :: Test
+caesarCipherTests =
+  TestLabel "caesarCipher" $
+    TestList
+      [ mkTest "caesarCipher homework example 1" "efghijklmnopqrstuvwxyzabcd" (caesarCipher 4 ['a'..'z'])
+      , mkTest "caesarCipher homework example 2" "Jgbk Xgcozgz" (caesarCipher 6 "Dave Rawitat")
+      , mkTest "caesarCipher homework example 3" "3215697" (caesarCipher 2 "3215697")
+      , mkTest "caesarCipher homework example 4" "!!!!!@^&#%@@&*K#" (caesarCipher 2 "!!!!!@^&#%@@&*I#")
+      ]
+
+caesarDecipherTests :: Test
+caesarDecipherTests =
+  TestLabel "caesarDecipher" $
+    TestList
+      [ mkTest "caesarDecipher homework example 1" "abcdefghijklmnopqrstuvwxyz" (caesarDecipher 4 "efghijklmnopqrstuvwxyzabcd")
+      , mkTest "caesarDecipher homework example 2" "Dave Rawitat" (caesarDecipher 6 "Jgbk Xgcozgz")
+      , mkTest "caesarDecipher homework example 3" "Bytc Pyugryr" (caesarDecipher 8 "Jgbk Xgcozgz")
+      ]
+
 allTests :: Test
 allTests = TestList
   [ lengthTests
@@ -616,6 +635,8 @@ allTests = TestList
   , stalinSortTests
   , compressTests
   , areAnagramTests
+  , caesarCipherTests
+  , caesarDecipherTests
   ]
 
 main :: IO ()
