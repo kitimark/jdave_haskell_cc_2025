@@ -75,6 +75,18 @@ groupTests =
       , mkTest "comparison of group function - works on words" (group "mississippi") (group' "mississippi")
       ]
 
+nubTests :: Test
+nubTests =
+  TestLabel "nub'" $
+    TestList
+      [ mkTest "handles empty list" ([] :: [Int]) (nub' ([] :: [Int]))
+      , mkTest "drops duplicate ints" ([1,2,3,4] :: [Int]) (nub' [1,1,2,2,3,4,3 :: Int])
+      , mkTest "preserves first occurrence order" "kitmar" (nub' "kitimark")
+      , mkTest "works with booleans" [True, False] (nub' [True, True, False, True])
+      , mkTest "comparison of nub function - numbers" (nub [1,2,1,3,2 :: Int]) (nub' [1,2,1,3,2 :: Int])
+      , mkTest "comparison of nub function - strings" (nub "mississippi") (nub' "mississippi")
+      ]
+
 filterTests :: Test
 filterTests =
   TestLabel "filter'" $
@@ -595,6 +607,7 @@ allTests :: Test
 allTests = TestList
   [ lengthTests
   , groupTests
+  , nubTests
   , filterTests
   , headTests
   , tailTests

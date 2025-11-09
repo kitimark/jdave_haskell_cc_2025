@@ -18,6 +18,8 @@ group' (x:xs)
 _mergeSubArray e (x:xs) = [e : x] ++ xs
 
 -- nub
+nub' [] = []
+nub' (x:xs) = x : (nub' $ filter (/= x) xs)
 
 -- filter
 filter' p [] = []
