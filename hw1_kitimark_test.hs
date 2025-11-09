@@ -406,6 +406,54 @@ intercalateTests =
       , mkTest "handles empty separators" (intercalate "" ["kit","im","ark"]) (intercalate' "" ["kit","im","ark"])
       ]
 
+insertionsortTests :: Test
+insertionsortTests =
+  TestLabel "insertionsort" $
+    TestList
+      [ mkTest "sorts empty list" (sort ([] :: [Int])) (insertionsort ([] :: [Int]))
+      , mkTest "sorts already sorted list" (sort [1,2,3,4 :: Int]) (insertionsort [1,2,3,4 :: Int])
+      , mkTest "sorts reverse list" (sort [5,4,3,2,1 :: Int]) (insertionsort [5,4,3,2,1 :: Int])
+      , mkTest "handles duplicates" (sort [3,1,2,3,2 :: Int]) (insertionsort [3,1,2,3,2 :: Int])
+      , mkTest "sorts characters" (sort "kitimark") (insertionsort "kitimark")
+      ]
+
+insertTests :: Test
+insertTests =
+  TestLabel "insert'" $
+    TestList
+      [ mkTest "inserts into empty list" (insert 3 ([] :: [Int])) (insert' 3 ([] :: [Int]))
+      , mkTest "inserts at head" (insert 0 [1,2,3 :: Int]) (insert' 0 [1,2,3 :: Int])
+      , mkTest "inserts in middle" (insert 3 [1,2,4,5 :: Int]) (insert' 3 [1,2,4,5 :: Int])
+      , mkTest "inserts at end" (insert 5 [1,2,3,4 :: Int]) (insert' 5 [1,2,3,4 :: Int])
+      , mkTest "handles duplicates" (insert 2 [1,2,2,3 :: Int]) (insert' 2 [1,2,2,3 :: Int])
+      , mkTest "works with characters" (insert 'a' "kitimrk") (insert' 'a' "kitimrk")
+      ]
+
+mergesortTests :: Test
+mergesortTests =
+  TestLabel "mergesort" $
+    TestList
+      [ mkTest "sorts empty list" (sort ([] :: [Int])) (mergesort ([] :: [Int]))
+      , mkTest "sorts singleton list" (sort [42 :: Int]) (mergesort [42 :: Int])
+      , mkTest "sorts reverse list" (sort [5,4,3,2,1 :: Int]) (mergesort [5,4,3,2,1 :: Int])
+      , mkTest "handles duplicates" (sort [3,1,2,3,2 :: Int]) (mergesort [3,1,2,3,2 :: Int])
+      , mkTest "sorts characters" (sort "kitimark") (mergesort "kitimark")
+      ]
+
+mergeTests :: Test
+mergeTests =
+  TestLabel "merge" $
+    TestList
+      [ mkTest "merges two empty lists" (sort ([] :: [Int])) (merge ([] :: [Int]) [])
+      , mkTest "merges empty with singleton" (sort [1 :: Int]) (merge [] [1 :: Int])
+      , mkTest "merges singleton with empty" (sort [1 :: Int]) (merge [1 :: Int] [])
+      , mkTest "merges multi-element with empty" (sort [1,2,3 :: Int]) (merge [1,2,3 :: Int] [])
+      , mkTest "merges unequal lengths" (sort ([1,2,3 :: Int] ++ [4,5 :: Int])) (merge [1,2,3 :: Int] [4,5 :: Int])
+      , mkTest "merges alternating lists" (sort ([1,3,5 :: Int] ++ [2,4,6 :: Int])) (merge [1,3,5 :: Int] [2,4,6 :: Int])
+      , mkTest "merges with duplicates" (sort ([1,1,3 :: Int] ++ [1,2,2 :: Int])) (merge [1,1,3 :: Int] [1,2,2 :: Int])
+      , mkTest "merges characters" (sort ("ace" ++ "bdf")) (merge "ace" "bdf")
+      ]
+
 allTests :: Test
 allTests = TestList
   [ lengthTests
@@ -443,6 +491,10 @@ allTests = TestList
   , intersectTests
   , intersperseTests
   , intercalateTests
+  , insertionsortTests
+  , insertTests
+  , mergesortTests
+  , mergeTests
   ]
 
 main :: IO ()

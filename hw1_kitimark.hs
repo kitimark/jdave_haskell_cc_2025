@@ -186,3 +186,40 @@ intersperse' i (x:xs) = x : i : intersperse' i xs
 intercalate' i l = concat' $ intersperse' i l
 
 -- permutations
+
+
+-- Question 2; implement insert and merge for insertionsort and mergesort
+
+-- insertion sort
+insertionsort :: (Ord a) => [a] -> [a]
+insertionsort [] = []
+insertionsort (x:xs) = insert' x (insertionsort xs)
+
+-- implement insert
+insert' :: (Ord a) => a -> [a] -> [a]
+insert' a [] = [a]
+insert' a [b]
+    | a < b = [a, b]
+    | otherwise = [b, a]
+insert' a (x:xs)
+    | a < x = a : x : xs
+    | otherwise = x : insert' a xs
+
+-- merge sort
+mergesort :: (Ord a) => [a] -> [a]
+mergesort [] = []
+mergesort [x] = [x]
+mergesort xs = merge (mergesort left) (mergesort right)
+    where
+        half = div (length xs) 2
+        left = take half xs
+        right = drop half xs
+
+-- implement merge
+merge :: (Ord a) => [a] -> [a] -> [a]
+merge [] [] = []
+merge xs [] = xs
+merge [] ys = ys
+merge (x:xs) (y:ys)
+    | x < y = x : merge xs (y:ys)
+    | otherwise = y : merge (x:xs) ys
