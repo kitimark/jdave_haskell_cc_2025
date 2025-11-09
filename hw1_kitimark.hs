@@ -97,15 +97,19 @@ product' (x:xs) = x * product' xs
 maximum' [] = error "empty list"
 maximum' [a] = a
 maximum' (x:xs)
-    | x > maximum' xs = x
-    | otherwise = maximum' xs
+    | x > maxInXs = x
+    | otherwise = maxInXs
+    where
+        maxInXs = maximum' xs
 
 -- minimum
 minimum' [] = error "empty list"
 minimum' [a] = a
 minimum' (x:xs)
-    | x < minimum' xs = x
-    | otherwise = minimum' xs
+    | x < minInXs = x
+    | otherwise = minInXs
+    where
+        minInXs = minimum' xs
 
 -- iterate
 -- NOTE: iterate' is already existing in Data.List
