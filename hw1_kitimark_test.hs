@@ -495,6 +495,17 @@ intercalateTests =
       , mkTest "comparison of intercalate function - text chunks" (intercalate "::" ["h","s","k"]) (intercalate' "::" ["h","s","k"])
       ]
 
+permutationsTests :: Test
+permutationsTests =
+  TestLabel "permutations'" $
+    TestList
+      [ mkTest "empty list" ([[]] :: [[Int]]) (permutations' ([] :: [Int]))
+      , mkTest "singleton list" [[2]] (permutations' [2])
+      , mkTest "singleton list" (sort [[1, 2], [2, 1]]) (sort $ permutations' [1, 2])
+      , mkTest "singleton list" (sort [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]) (sort $ permutations' [1..3])
+      ]
+
+
 insertionsortTests :: Test
 insertionsortTests =
   TestLabel "insertionsort" $
@@ -641,6 +652,7 @@ allTests = TestList
   , intersectTests
   , intersperseTests
   , intercalateTests
+  , permutationsTests
   , insertionsortTests
   , insertTests
   , mergesortTests

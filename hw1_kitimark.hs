@@ -194,7 +194,11 @@ intersperse' i (x:xs) = x : i : intersperse' i xs
 intercalate' i l = concat' $ intersperse' i l
 
 -- permutations
+permutations' [] = [[]]
+permutations' (x:xs) = concatMap' (_genArrayInsertEachGap x) (permutations' xs)
 
+_genArrayInsertEachGap x [] = [[x]]
+_genArrayInsertEachGap x (y:ys) = (x:y:ys) : map' (\l -> y:l) (_genArrayInsertEachGap x ys)
 
 -- Question 2; implement insert and merge for insertionsort and mergesort
 
