@@ -454,6 +454,28 @@ mergeTests =
       , mkTest "merges characters" (sort ("ace" ++ "bdf")) (merge "ace" "bdf")
       ]
 
+stalinSortTests :: Test
+stalinSortTests =
+  TestLabel "stalinSort" $
+    TestList
+      [ mkTest "sorts empty list" ([] :: [Int]) (stalinSort [] :: [Int])
+      , mkTest "sorts singleton list" [1 :: Int] (stalinSort [1 :: Int])
+      , mkTest "sorts two elements sorted list" [1, 2 :: Int] (stalinSort [1, 2 :: Int])
+      , mkTest "sorts two elements un-sorted list" [2 :: Int] (stalinSort [2, 1 :: Int])
+      , mkTest "sorts from homework example 1 element" [4] (stalinSort [4 :: Int])
+      , mkTest "sorts from homework example 2 elements" [2, 4] (stalinSort [2, 4 :: Int])
+      , mkTest "sorts from homework example 3 elements" [11] (stalinSort [11, 2, 4 :: Int])
+      , mkTest "sorts from homework example 4 elements" [10, 11] (stalinSort [10, 11, 2, 4 :: Int])
+      , mkTest "sorts from homework example 5 elements" [9, 10, 11] (stalinSort [9, 10, 11, 2, 4 :: Int])
+      , mkTest "sorts from homework example 6 elements" [1, 9, 10, 11] (stalinSort [1, 9, 10, 11, 2, 4 :: Int])
+      , mkTest "sorts from homework example 7 elements" [7, 9, 10, 11] (stalinSort [7, 1, 9, 10, 11, 2, 4 :: Int])
+      , mkTest "sorts from homework example 8 elements" [3, 7, 9, 10, 11] (stalinSort [3, 7, 1, 9, 10, 11, 2, 4 :: Int])
+      , mkTest "sorts from homework example 9 elements" [4, 7, 9, 10, 11] (stalinSort [4, 3, 7, 1, 9, 10, 11, 2, 4 :: Int])
+      , mkTest "sorts from homework example 10 elements" [2, 4, 7, 9, 10, 11] (stalinSort [2, 4, 3, 7, 1, 9, 10, 11, 2, 4 :: Int])
+      , mkTest "sorts from homework example 11 elements" [1, 2, 4, 7, 9, 10, 11] (stalinSort [1, 2, 4, 3, 7, 1, 9, 10, 11, 2, 4 :: Int])
+      , mkTest "sorts from homework example" [3, 4, 7, 9, 10, 11] (stalinSort [3, 1, 2, 4, 3, 7, 1, 9, 10, 11, 2, 4 :: Int])
+      ]
+
 allTests :: Test
 allTests = TestList
   [ lengthTests
@@ -495,6 +517,7 @@ allTests = TestList
   , insertTests
   , mergesortTests
   , mergeTests
+  , stalinSortTests
   ]
 
 main :: IO ()

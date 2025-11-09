@@ -223,3 +223,14 @@ merge [] ys = ys
 merge (x:xs) (y:ys)
     | x < y = x : merge xs (y:ys)
     | otherwise = y : merge (x:xs) ys
+
+-- Question 3; implement stalin sort
+
+stalinSort :: (Ord a) => [a] -> [a]
+
+-- implement
+stalinSort [] = []
+stalinSort [x] = [x]
+stalinSort (x1:x2:xs)
+    | x1 < x2 = x1 : stalinSort (x2:xs)
+    | otherwise = stalinSort (x1:xs)
