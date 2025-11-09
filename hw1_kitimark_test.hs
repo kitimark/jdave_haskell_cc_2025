@@ -564,6 +564,14 @@ compressTests =
       , mkTest "compress homework example 3" "A1B1C1" (compress "ABC")
       ]
 
+areAnagramTests :: Test
+areAnagramTests =
+  TestLabel "areAnagram" $
+    TestList
+      [ mkTest "areAnagram homework example 1" True (areAnagram "Tom Marvolo Riddle" "I am Lord Voldemort")
+      , mkTest "areAnagram homework example 2" False (areAnagram "Tom Marvolo Riddle" "I am also Lord Voldemort")
+      ]
+
 allTests :: Test
 allTests = TestList
   [ lengthTests
@@ -607,6 +615,7 @@ allTests = TestList
   , mergeTests
   , stalinSortTests
   , compressTests
+  , areAnagramTests
   ]
 
 main :: IO ()

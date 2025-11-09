@@ -1,3 +1,5 @@
+import Data.Char (toLower, isSpace)
+
 -- Question 1; implement these function following Data.List library
 -- length
 length' [] = 0
@@ -256,3 +258,13 @@ _add c [] = [(c, 1)]
 _add c1 ((c2, n):xs)
     | c1 == c2 = (c2, n + 1) : xs
     | otherwise = (c1, 1) : (c2, n) : xs
+
+-- Question 5; implement areAnagram
+
+areAnagram :: String -> String -> Bool
+
+-- implement
+areAnagram "" "" = True
+areAnagram s1 s2 = _normalize s1 == _normalize s2
+
+_normalize s = mergesort $ map toLower $ filter' (not . isSpace) $ s
