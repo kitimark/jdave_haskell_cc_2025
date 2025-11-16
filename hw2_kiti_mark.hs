@@ -22,11 +22,15 @@ instance Shape Circle where
   area :: Circle -> Double
   area (Circle r) = pi * square r
 
-newtype Petal = Petal {petalSide :: Double} deriving (Show, Eq)
+newtype Petal = Petal {background :: Square} deriving (Show, Eq)
 
 instance Shape Petal where
   area :: Petal -> Double
-  area (Petal s) = (area . Circle $ half s) - (area . Square $ half s)
+  area (Petal bg) = area innerCircle - area innerSquare
+    where
+      halfBackgroundSide = half $ side bg
+      innerCircle = Circle halfBackgroundSide
+      innerSquare = Square halfBackgroundSide
 
 newtype Rose = Rose {petal :: Petal} deriving (Show, Eq)
 

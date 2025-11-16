@@ -111,12 +111,12 @@ petalAreaTests =
       [ let s = 6.0
             halfSide = s / 2
             expected = pi * halfSide * halfSide - halfSide * halfSide
-         in mkTest "subtracts inscribed square from circle" expected (area (Petal s))
+         in mkTest "subtracts inscribed square from circle" expected (area (Petal (Square s)))
       , let s = 2.5
             halfSide = s / 2
             expected = pi * halfSide * halfSide - halfSide * halfSide
-         in mkTest "works for fractional petals" expected (area (Petal s))
-      , mkTest "always yields positive area" True (area (Petal 5) > 0)
+         in mkTest "works for fractional petals" expected (area (Petal (Square s)))
+      , mkTest "always yields positive area" True (area (Petal (Square 5)) > 0)
       ]
 
 roseAreaTests :: Test
@@ -127,10 +127,10 @@ roseAreaTests =
             halfSide = s / 2
             petalArea = pi * halfSide * halfSide - halfSide * halfSide
             expected = 2 * petalArea
-         in mkTest "doubles the underlying petal area" expected (area (Rose (Petal s)))
-      , let p = Petal 3.5
+         in mkTest "doubles the underlying petal area" expected (area (Rose (Petal (Square s))))
+      , let p = Petal (Square 3.5)
          in mkTest "rose always larger than single petal" True (area (Rose p) > area p)
-      , let p = Petal 12.0
+      , let p = Petal (Square 12.0)
             rose = Rose p
             expected = double (area p)
          in mkTest "uses double helper for area" expected (area rose)
