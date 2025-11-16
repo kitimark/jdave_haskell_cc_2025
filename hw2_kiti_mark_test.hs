@@ -55,6 +55,16 @@ expectError label reference actual =
     tryEval :: a -> IO (Either SomeException a)
     tryEval = try . evaluate
 
+roseThreshold :: Double
+roseThreshold = 0.1
+
+sumHalvingSeries :: Double -> Double
+sumHalvingSeries start = go start
+  where
+    go current
+      | current < roseThreshold = current
+      | otherwise = current + go (current / 2)
+
 squareTests :: Test
 squareTests =
   TestLabel "square" $
@@ -188,6 +198,21 @@ roseInnerTests =
          in mkApproxTest "inner rose area is half of base rose" 1e-12 expectedArea actualArea
       ]
 
+roseRecursiveAreaTests :: Test
+roseRecursiveAreaTests =
+  TestLabel "Rose recursive area" $
+    TestList
+      [ let sideLength = 0.4
+            rose = Rose (Petal (Square sideLength))
+            expected = area (petal rose)
+         in mkApproxTest "returns petal area when already below threshold" 1e-12 expected (roseAreaWithRecurison rose),
+        let sideLength = 10.0
+            rose = Rose (Petal (Square sideLength))
+            firstPetalArea = area (petal rose)
+            expected = sumHalvingSeries firstPetalArea
+         in mkApproxTest "sums halved petal areas until threshold" 1e-12 expected (roseAreaWithRecurison rose)
+      ]
+
 allTests :: Test
 allTests =
   TestList
@@ -200,7 +225,8 @@ allTests =
       petalAreaTests,
       petalInnerTests,
       roseAreaTests,
-      roseInnerTests
+      roseInnerTests,
+      roseRecursiveAreaTests
     ]
 
 main :: IO ()

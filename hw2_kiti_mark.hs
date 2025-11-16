@@ -1,3 +1,4 @@
+-- Question 1; implement rose
 square :: (Num a) => a -> a
 square a = a * a
 
@@ -54,3 +55,11 @@ instance Shape Rose where
 instance ShapeRecursion Rose where
   inner :: Rose -> Rose
   inner (Rose p) = Rose $ inner p
+
+roseAreaWithRecurison :: Rose -> Double
+roseAreaWithRecurison r
+  | petalArea < epsilon = petalArea
+  | otherwise = petalArea + roseAreaWithRecurison (inner r)
+  where
+    epsilon = 0.1
+    petalArea = area $ petal r
